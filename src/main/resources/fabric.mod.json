@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "gcb-server",
+  "version": "${version}",
+  "name": "GCB-server",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/gcb-server/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "kim.biryeong.gcbserver.GcbServer"
+    ]
+  },
+  "mixins": [
+    "gcb-server.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
