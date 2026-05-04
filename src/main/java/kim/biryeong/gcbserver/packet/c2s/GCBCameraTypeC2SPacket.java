@@ -1,5 +1,6 @@
 package kim.biryeong.gcbserver.packet.c2s;
 
+import kim.biryeong.gcbserver.events.PlayerCameraTypeChangedEvent;
 import kim.biryeong.gcbserver.player.CameraType;
 import kim.biryeong.gcbserver.player.GCBPlayer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -22,6 +23,7 @@ public record GCBCameraTypeC2SPacket(CameraType cameraType) implements GCBC2SPac
     public void apply(ServerPlayNetworking.Context context) {
         GCBPlayer player = this.getPlayer(context);
         player.gcb$setCameraType(cameraType);
+        PlayerCameraTypeChangedEvent.EVENT.invoker().onCameraTypeChanged(context.player(), cameraType);
     }
 
     public static GCBCameraTypeC2SPacket decode(String[] data) {

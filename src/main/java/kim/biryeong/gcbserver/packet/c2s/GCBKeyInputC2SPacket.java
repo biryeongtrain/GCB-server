@@ -1,5 +1,6 @@
 package kim.biryeong.gcbserver.packet.c2s;
 
+import kim.biryeong.gcbserver.events.PlayerKeyStateChangedEvent;
 import kim.biryeong.gcbserver.player.GCBPlayer;
 import kim.biryeong.gcbserver.player.Key;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -18,6 +19,7 @@ public record GCBKeyInputC2SPacket(Key key, boolean pushed) implements GCBC2SPac
     public void apply(ServerPlayNetworking.Context context) {
         GCBPlayer player = this.getPlayer(context);
         player.gcb$setKey(key, pushed);
+        PlayerKeyStateChangedEvent.EVENT.invoker().onKeyStateChanged(context.player(), pushed, key);
     }
 
     public static GCBC2SPacket decode(String[] data) {
