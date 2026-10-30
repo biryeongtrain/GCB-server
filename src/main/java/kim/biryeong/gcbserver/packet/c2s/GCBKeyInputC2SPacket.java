@@ -27,7 +27,11 @@ public record GCBKeyInputC2SPacket(Key key, boolean pushed) implements GCBC2SPac
             throw new IllegalArgumentException("Invalid data format: " + Arrays.toString(data));
         }
 
-        return new GCBKeyInputC2SPacket(Key.fromTranslationKey(data[1]).orElseThrow(), Boolean.parseBoolean(data[2]));
+        if (!data[2].equals("true") && !data[2].equals("false")) {
+            throw new IllegalArgumentException("Invalid key state");
+        }
+        return new GCBKeyInputC2SPacket(Key.fromTranslationKey(data[1])
+                .orElseThrow(() -> new IllegalArgumentException("Unknown key")), Boolean.parseBoolean(data[2]));
     }
 
     @Override

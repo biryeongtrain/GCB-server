@@ -22,7 +22,7 @@ public record GCBModDataC2SPacket(String modId) implements GCBC2SPacket {
     }
 
     public static GCBModDataC2SPacket decode(String[] data) {
-        if (data.length != 2) {
+        if (data.length != 2 || data[1].isBlank()) {
             throw new IllegalArgumentException("Invalid data format: " + Arrays.toString(data));
         }
         return new GCBModDataC2SPacket(data[1]);

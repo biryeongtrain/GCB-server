@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 public interface GCBC2SPacket extends GCBPacket {
     String id();
+    default boolean accepted() { return true; }
     void apply(ServerPlayNetworking.Context context);
     default GCBPlayer getPlayer(ServerPlayNetworking.Context context) {
         return (GCBPlayer) context.player();

@@ -27,6 +27,7 @@ public record GCBCameraTypeC2SPacket(CameraType cameraType) implements GCBC2SPac
     }
 
     public static GCBCameraTypeC2SPacket decode(String[] data) {
+        if (data.length != 2) throw new IllegalArgumentException("Invalid perspective payload");
         return new GCBCameraTypeC2SPacket(CameraType.valueOf(data[1]));
     }
 

@@ -11,4 +11,6 @@ public interface GCBPlayer {
     boolean gcb$isModEnabled(String modId);
     boolean gcb$hasMod();
     void gcb$markHasMod();
+    void gcb$addFeature(String feature);
+    boolean gcb$hasFeature(String feature);
 }

@@ -14,6 +14,15 @@ import java.util.List;
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin implements GCBPlayer {
     @Unique
+    private final java.util.Set<String> gcb$features = new java.util.HashSet<>();
+
+    @Override
+    public void gcb$addFeature(String feature) { gcb$features.add(feature); }
+
+    @Override
+    public boolean gcb$hasFeature(String feature) { return gcb$features.contains(feature); }
+
+    @Unique
     private String gcb$modVersion = "unknown";
     @Unique
     private final List<String> gcb$playerMods = new ArrayList<>();
