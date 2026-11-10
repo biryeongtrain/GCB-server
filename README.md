@@ -22,7 +22,7 @@ dependencies {
 Fabric API 0.161.0+26.3 이상이 필요합니다. packet-tweaker는 별도로 설치하지 않습니다.
 
 Java 25 환경에서 `./gradlew build`로 테스트와 JAR 생성을 실행합니다.
-`./gradlew publish`는 Maven settings의 `qf-repo` 인증을 사용해 기존 저장소에 게시합니다.
+`./gradlew publishToR2`는 빌드·테스트 후 Cloudflare R2(`repo.biryeong.kim`)에 업로드하고 공개 URL을 확인합니다. rclone의 `r2` remote 설정이 필요하며, 이미 게시된 버전은 덮어쓰지 않습니다. 옵션은 `gradle/publish-r2.gradle` 상단 주석을 참고하세요.
 
 ## GCB-mod 4.0.0 연동
 
