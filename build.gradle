@@ -107,3 +107,5 @@ publishing {
         }
     }
 }
+
+apply from: 'gradle/publish-r2.gradle'
