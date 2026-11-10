@@ -16,9 +16,9 @@ public record GCBParticleS2CPacket(
     public static final String ID = "PARTICLE";
 
     public GCBParticleS2CPacket {
-        Objects.requireNonNull(particle, "particle");
+        particle = clientToken(particle, "particle");
         Objects.requireNonNull(offset, "offset");
-        data = Objects.requireNonNullElse(data, "");
+        data = clientToken(Objects.requireNonNullElse(data, ""), "data");
         Objects.requireNonNull(shape, "shape");
     }
 
@@ -96,8 +96,11 @@ public record GCBParticleS2CPacket(
         }
     }
 
-        public record Trail(double period, ShapeOptions options, Vec... positions) implements ShapeData {
+    public record Trail(double period, ShapeOptions options, Vec... positions) implements ShapeData {
         public Trail {
+            if (!Double.isFinite(period) || period <= 0.0) {
+                period = 0.1;
+            }
             options = Objects.requireNonNullElse(options, ShapeOptions.DEFAULT);
             positions = positions == null ? new Vec[0] : positions;
         }
@@ -181,5 +184,14 @@ public record GCBParticleS2CPacket(
             }
         }
         return joiner.toString();
+    }
+
+    private static String clientToken(String value, String name) {
+        Objects.requireNonNull(value, name);
+        String token = value.startsWith("minecraft:") ? value.substring("minecraft:".length()) : value;
+        if (token.indexOf(':') >= 0) {
+            throw new IllegalArgumentException(name + " cannot contain ':' in the GCB-mod packet protocol");
+        }
+        return token;
     }
 }

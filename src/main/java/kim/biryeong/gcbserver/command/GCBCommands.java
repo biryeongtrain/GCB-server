@@ -28,7 +28,7 @@ public class GCBCommands {
 
     private static LiteralArgumentBuilder<CommandSourceStack> rootCommand() {
         return Commands.literal("gcb")
-                .requires(source -> source.hasPermission(2))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(velocityCommand())
                 .then(particleCommand());
     }
